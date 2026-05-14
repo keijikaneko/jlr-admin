@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>商品管理 | JLR</title>
+  <link rel="stylesheet" href="./admin.css">
+</head>
+<body>
+  <header class="admin-header">
+    <div>
+      <div class="eyebrow">JLR Order Portal</div>
+      <h1>商品管理</h1>
+    </div>
+    <div class="header-actions">
+      <button id="downloadCsvBtn" class="btn secondary" disabled>CSVダウンロード</button>
+      <button id="downloadJsonBtn" class="btn primary" disabled>products.jsonダウンロード</button>
+    </div>
+  </header>
+
+  <main class="admin-main">
+    <section class="panel">
+      <h2>CSV読み込み</h2>
+      <p class="note">
+        products_master.csv を選択してください。読み込み後、在庫・価格・表示状態を編集できます。
+      </p>
+
+      <div class="upload-box">
+        <input type="file" id="csvFileInput" accept=".csv,text/csv">
+        <button id="loadSampleBtn" class="btn ghost">既存CSVを読み込み</button>
+      </div>
+
+      <div id="status" class="status">CSV未読み込み</div>
+    </section>
+
+    <section class="panel controls">
+      <div class="control">
+        <label for="keywordInput">検索</label>
+        <input id="keywordInput" type="search" placeholder="品番 / 車種 / 年式 / 商品名">
+      </div>
+
+      <div class="control">
+        <label for="brandFilter">ブランド</label>
+        <select id="brandFilter">
+          <option value="">すべて</option>
+        </select>
+      </div>
+
+      <div class="control">
+        <label for="yearFilter">年式</label>
+        <select id="yearFilter">
+          <option value="">すべて</option>
+        </select>
+      </div>
+
+      <div class="control">
+        <label for="activeFilter">表示状態</label>
+        <select id="activeFilter">
+          <option value="">すべて</option>
+          <option value="true">表示中</option>
+          <option value="false">非表示</option>
+        </select>
+      </div>
+    </section>
+
+    <section class="summary-grid">
+      <div class="summary-card">
+        <span>総件数</span>
+        <strong id="totalCount">0</strong>
+      </div>
+      <div class="summary-card">
+        <span>表示中</span>
+        <strong id="activeCount">0</strong>
+      </div>
+      <div class="summary-card">
+        <span>在庫あり</span>
+        <strong id="stockCount">0</strong>
+      </div>
+      <div class="summary-card">
+        <span>変更件数</span>
+        <strong id="dirtyCount">0</strong>
+      </div>
+    </section>
+
+    <section class="panel table-panel">
+      <div class="table-head">
+        <h2>商品一覧</h2>
+        <div id="visibleCount" class="muted">0件表示</div>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>ブランド</th>
+              <th>年式</th>
+              <th>モデル</th>
+              <th>商品</th>
+              <th>品番</th>
+              <th>Date Code</th>
+              <th>価格</th>
+              <th>在庫</th>
+              <th>表示</th>
+            </tr>
+          </thead>
+          <tbody id="productsTbody">
+            <tr>
+              <td colspan="9" class="empty">CSVを読み込んでください</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <script src="./admin.js"></script>
+</body>
+</html>
