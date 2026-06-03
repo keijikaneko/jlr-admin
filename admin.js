@@ -1,7 +1,8 @@
 const CSV_PATH = '../data/products_master.csv';
-
+const PRODUCTS_JSON_URL = 'https://jlr.starjapan.co.jp/assets/data/products.json';
 const csvFileInput = document.getElementById('csvFileInput');
 const loadSampleBtn = document.getElementById('loadSampleBtn');
+const loadBlobJsonBtn = document.getElementById('loadBlobJsonBtn');
 const downloadJsonBtn = document.getElementById('downloadJsonBtn');
 const downloadCsvBtn = document.getElementById('downloadCsvBtn');
 const keywordInput = document.getElementById('keywordInput');
