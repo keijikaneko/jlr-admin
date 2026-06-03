@@ -54,6 +54,34 @@ loadSampleBtn.addEventListener('click', async () => {
   }
 });
 
+loadBlobJsonBtn.addEventListener('click', async () => {
+  try {
+    const response = await fetch(PRODUCTS_JSON_URL, { cache: 'no-store' });
+
+    if (!response.ok) {
+      throw new Error(`products.json が取得できません: ${PRODUCTS_JSON_URL}`);
+    }
+
+    const json = await response.json();
+
+    products = json.map((item, index) => normalizeProduct({
+      ...item,
+      _rowId: index + 1,
+      _dirty: false
+    }));
+
+    originalProducts = JSON.parse(JSON.stringify(products));
+
+    setupFilters();
+    enableActions(true);
+    setStatus(`Blobのproducts.jsonを読み込みました。${products.length}件`);
+    render();
+
+  } catch (error) {
+    setStatus(error.message, true);
+  }
+});
+
 [keywordInput, brandFilter, yearFilter, activeFilter].forEach((el) => {
   el.addEventListener('input', render);
 });
