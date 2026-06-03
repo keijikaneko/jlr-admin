@@ -58,7 +58,7 @@ loadSampleBtn.addEventListener('click', async () => {
 });
 
 downloadJsonBtn.addEventListener('click', () => {
-  const json = JSON.stringify(products.map(normalizeProduct), null, 2);
+  const json = JSON.stringify(products.map(toPublicProduct), null, 2);
   downloadText('products.json', json, 'application/json');
 });
 
@@ -117,6 +117,20 @@ function normalizeProduct(item) {
     active: toBoolean(item.active),
     _rowId: item._rowId,
     _dirty: Boolean(item._dirty)
+  };
+}
+
+function toPublicProduct(item) {
+  return {
+    brand: String(item.brand ?? '').trim(),
+    modelYear: String(item.modelYear ?? '').replace('MY', '').trim(),
+    model: String(item.model ?? '').trim(),
+    itemType: String(item.itemType ?? '').trim(),
+    partNo: String(item.partNo ?? '').trim(),
+    dateCode: String(item.dateCode ?? '').trim(),
+    price: toNumber(item.price),
+    stock: toNumber(item.stock),
+    active: toBoolean(item.active)
   };
 }
 
